@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kettle & Bloom — Specialty Coffee & Brew Gear</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#211712;
+    --ink-2:#2c2019;
+    --paper:#F0E9DB;
+    --paper-2:#E4D9C3;
+    --teal:#2F6E62;
+    --teal-dark:#1C463D;
+    --gold:#C89B3C;
+    --text-dark:#241A13;
+    --text-light:#F5EFE3;
+    --line: rgba(36,26,19,0.14);
+    --line-light: rgba(245,239,227,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text-dark);
+    font-family:'Inter',sans-serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .mono{ font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em; }
+  a{color:inherit;}
+  img,svg{display:block;}
+  button{font-family:inherit;cursor:pointer;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+
+  /* ---------- NAV ---------- */
+  header.site{
+    position:sticky;top:0;z-index:40;
+    background:rgba(240,233,220,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 32px;max-width:1180px;margin:0 auto;
+  }
+  .logo{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;
+  }
+  .logo .mark{
+    width:30px;height:30px;border-radius:50%;
+    background:conic-gradient(var(--teal) 0deg 260deg, var(--paper-2) 260deg 360deg);
+    display:grid;place-items:center;
+  }
+  .logo .mark::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--paper);}
+  nav.links{display:flex;gap:34px;font-size:0.94rem;}
+  nav.links a{text-decoration:none;position:relative;padding:4px 0;}
+  nav.links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--text-dark);
+    transition:width .25s ease;
+  }
+  nav.links a:hover::after{width:100%;}
+  .nav-right{display:flex;align-items:center;gap:20px;}
+  .cart-btn{
+    display:flex;align-items:center;gap:8px;
+    background:var(--ink);color:var(--text-light);
+    border:none;border-radius:30px;padding:10px 16px 10px 14px;
+    font-size:0.85rem;
+  }
+  .cart-count{
+    background:var(--gold);color:var(--ink);
+    border-radius:50%;width:20px;height:20px;
+    display:grid;place-items:center;font-size:0.72rem;font-weight:600;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:88px 32px 70px;
+    max-width:1180px;margin:0 auto;
+    display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;text-transform:uppercase;
+    font-size:0.72rem;letter-spacing:0.14em;color:var(--teal-dark);
+    display:flex;align-items:center;gap:10px;margin-bottom:22px;
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--teal-dark);}
+  .hero h1{
+    font-size:clamp(2.4rem,4.6vw,3.9rem);
+    line-height:1.04;
+  }
+  .hero h1 em{font-style:italic;color:var(--teal-dark);}
+  .hero p.lede{
+    margin:26px 0 34px;max-width:46ch;font-size:1.06rem;color:#4a3b30;
+  }
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;}
+  .btn{
+    border:none;border-radius:30px;padding:14px 26px;font-size:0.92rem;font-weight:500;
+    display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--teal);color:var(--text-light);}
+  .btn-primary:hover{box-shadow:0 10px 24px -8px rgba(47,110,98,0.55);}
+  .btn-outline{background:transparent;color:var(--text-dark);border:1px solid var(--text-dark);}
+
+  /* Roast dial hero visual */
+  .dial-hero{position:relative;display:flex;justify-content:center;}
+  .dial-hero svg{width:100%;max-width:340px;height:auto;}
+  .dial-ring{stroke:var(--paper-2);stroke-width:10;fill:none;}
+  .dial-fill{
+    stroke:var(--teal);stroke-width:10;fill:none;stroke-linecap:round;
+    stroke-dasharray:754;stroke-dashoffset:754;
+    animation:fillDial 1.6s ease .3s forwards;
+  }
+  @keyframes fillDial{ to{ stroke-dashoffset:170; } }
+  .dial-center{font-family:'Fraunces',serif;}
+  .dial-caption{
+    position:absolute;bottom:6px;left:50%;transform:translateX(-50%);
+    font-family:'IBM Plex Mono',monospace;font-size:0.7rem;text-transform:uppercase;
+    letter-spacing:0.12em;color:#5a4a3c;text-align:center;
+  }
+
+  /* ---------- STRIP ---------- */
+  .strip{
+    background:var(--ink);color:var(--text-light);
+    padding:16px 0;overflow:hidden;border-top:1px solid var(--line-light);border-bottom:1px solid var(--line-light);
+  }
+  .strip-track{
+    display:flex;gap:60px;white-space:nowrap;
+    font-family:'IBM Plex Mono',monospace;font-size:0.78rem;letter-spacing:0.08em;
+    animation:scroll 22s linear infinite;width:max-content;
+  }
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .strip-track span{opacity:0.75;}
+
+  /* ---------- SHOP ---------- */
+  .shop{padding:86px 32px 40px;max-width:1180px;margin:0 auto;}
+  .shop-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:40px;flex-wrap:wrap;gap:20px;
+  }
+  .shop-head h2{font-size:clamp(1.8rem,3vw,2.5rem);}
+  .filters{display:flex;gap:8px;background:var(--paper-2);padding:5px;border-radius:30px;}
+  .filters button{
+    border:none;background:transparent;padding:9px 18px;border-radius:24px;
+    font-size:0.85rem;color:#5a4a3c;transition:all .2s ease;
+  }
+  .filters button.active{background:var(--ink);color:var(--text-light);}
+
+  .grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:26px;
+  }
+  .card{
+    background:#FBF8F1;border:1px solid var(--line);border-radius:18px;
+    overflow:hidden;display:flex;flex-direction:column;
+    transition:transform .22s ease, box-shadow .22s ease;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 20px 34px -22px rgba(36,26,19,0.35);}
+  .card-art{
+    height:170px;position:relative;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,var(--paper-2),#D8CBAE);
+  }
+  .card-art svg{width:78px;height:78px;}
+  .tag-stamp{
+    position:absolute;top:12px;left:12px;
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:20px;padding:4px 10px;
+    font-family:'IBM Plex Mono',monospace;font-size:0.65rem;text-transform:uppercase;
+    letter-spacing:0.08em;transform:rotate(-3deg);
+  }
+  .card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:10px;flex:1;}
+  .card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;}
+  .card-body h3{font-size:1.08rem;line-height:1.25;}
+  .origin{font-size:0.8rem;color:#6b5a49;}
+  .notes{font-size:0.8rem;color:#7a6a58;font-style:italic;}
+
+  .roast-mini{display:flex;align-items:center;gap:8px;margin-top:2px;}
+  .roast-mini svg{width:30px;height:30px;flex-shrink:0;}
+  .roast-mini .rl{font-family:'IBM Plex Mono',monospace;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;color:#6b5a49;}
+
+  .card-foot{
+    margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+    padding-top:14px;border-top:1px dashed var(--line);
+  }
+  .price{font-family:'IBM Plex Mono',monospace;font-size:1rem;font-weight:500;}
+  .add-btn{
+    background:var(--ink);color:var(--text-light);border:none;border-radius:20px;
+    padding:9px 16px;font-size:0.8rem;display:flex;align-items:center;gap:6px;
+    transition:background .2s ease;
+  }
+  .add-btn:hover{background:var(--teal-dark);}
+  .add-btn.added{background:var(--teal);}
+
+  /* ---------- BREW GUIDE / SIGNATURE STRIP ---------- */
+  .guide{
+    background:var(--ink);color:var(--text-light);
+    margin-top:90px;padding:80px 32px;
+  }
+  .guide-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;}
+  .guide h2{font-size:clamp(1.8rem,3vw,2.5rem);margin-bottom:18px;}
+  .guide p{color:#cfc3b0;max-width:44ch;font-size:0.98rem;}
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{
+    display:grid;grid-template-columns:56px 1fr;gap:18px;
+    padding:20px 0;border-top:1px solid var(--line-light);
+  }
+  .step:last-child{border-bottom:1px solid var(--line-light);}
+  .step .time{font-family:'IBM Plex Mono',monospace;font-size:0.8rem;color:var(--gold);}
+  .step h4{font-family:'Fraunces',serif;font-weight:500;font-size:1.02rem;margin-bottom:4px;}
+  .step p{margin:0;font-size:0.86rem;color:#b9ac99;}
+
+  /* ---------- NEWSLETTER ---------- */
+  .news{padding:90px 32px;max-width:780px;margin:0 auto;text-align:center;}
+  .news h2{font-size:clamp(1.7rem,3vw,2.3rem);margin-bottom:14px;}
+  .news p{color:#5a4a3c;margin-bottom:30px;}
+  .news-form{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+  .news-form input{
+    padding:14px 18px;border-radius:30px;border:1px solid var(--line);
+    background:#FBF8F1;min-width:260px;font-family:inherit;font-size:0.9rem;
+  }
+  .news-form input:focus{outline:2px solid var(--teal);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--paper-2);padding:50px 32px 30px;margin-top:20px;}
+  .foot-inner{
+    max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;
+    flex-wrap:wrap;gap:30px;border-bottom:1px solid var(--line);padding-bottom:30px;
+  }
+  .foot-col h5{font-family:'IBM Plex Mono',monospace;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;color:#5a4a3c;}
+  .foot-col a{display:block;font-size:0.88rem;margin-bottom:8px;text-decoration:none;color:var(--text-dark);}
+  .foot-bottom{
+    max-width:1180px;margin:0 auto;padding-top:20px;
+    display:flex;justify-content:space-between;font-size:0.78rem;color:#7a6a58;flex-wrap:wrap;gap:10px;
+  }
+
+  /* ---------- CART DRAWER ---------- */
+  .overlay{
+    position:fixed;inset:0;background:rgba(33,23,18,0.45);
+    opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:50;
+  }
+  .overlay.open{opacity:1;pointer-events:auto;}
+  .drawer{
+    position:fixed;top:0;right:0;bottom:0;width:min(420px,92vw);
+    background:var(--paper);z-index:51;
+    box-shadow:-20px 0 40px -20px rgba(0,0,0,0.3);
+    transform:translateX(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0);}
+  .drawer-head{
+    padding:24px 24px 18px;border-bottom:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .drawer-head h3{font-size:1.3rem;}
+  .close-btn{background:none;border:none;font-size:1.4rem;line-height:1;color:var(--text-dark);}
+  .drawer-items{flex:1;overflow-y:auto;padding:14px 24px;}
+  .empty-cart{text-align:center;padding:60px 20px;color:#7a6a58;}
+  .cart-item{
+    display:grid;grid-template-columns:52px 1fr auto;gap:14px;padding:16px 0;
+    border-bottom:1px solid var(--line);align-items:center;
+  }
+  .ci-art{
+    width:52px;height:52px;border-radius:10px;
+    background:linear-gradient(160deg,var(--paper-2),#D8CBAE);
+    display:flex;align-items:center;justify-content:center;
+  }
+  .ci-art svg{width:26px;height:26px;}
+  .ci-name{font-size:0.9rem;font-weight:500;margin-bottom:4px;}
+  .ci-price{font-family:'IBM Plex Mono',monospace;font-size:0.78rem;color:#6b5a49;}
+  .qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+  .qty button{
+    width:22px;height:22px;border-radius:50%;border:1px solid var(--line);background:#FBF8F1;
+    font-size:0.85rem;display:grid;place-items:center;color:var(--text-dark);
+  }
+  .qty span{font-family:'IBM Plex Mono',monospace;font-size:0.82rem;min-width:14px;text-align:center;}
+  .ci-remove{justify-self:end;background:none;border:none;color:#a8483a;font-size:0.76rem;text-decoration:underline;}
+  .drawer-foot{padding:20px 24px 26px;border-top:1px solid var(--line);}
+  .subtotal-row{display:flex;justify-content:space-between;margin-bottom:16px;font-size:0.95rem;}
+  .subtotal-row .val{font-family:'IBM Plex Mono',monospace;font-weight:500;}
+  .checkout-btn{width:100%;background:var(--ink);color:var(--text-light);border:none;border-radius:30px;padding:15px;font-size:0.95rem;}
+  .checkout-btn:hover{background:var(--teal-dark);}
+  .confirm{padding:60px 24px;text-align:center;}
+  .confirm .mark{
+    width:60px;height:60px;border-radius:50%;background:var(--teal);color:var(--text-light);
+    display:grid;place-items:center;margin:0 auto 20px;font-size:1.6rem;
+  }
+  .confirm h4{font-size:1.2rem;margin-bottom:10px;}
+  .confirm p{color:#6b5a49;font-size:0.88rem;}
+
+  @media (max-width:860px){
+    nav.links{display:none;}
+    .hero{grid-template-columns:1fr;padding-top:60px;}
+    .dial-hero{order:-1;}
+    .guide-inner{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="nav">
+    <div class="logo"><span class="mark"></span> Kettle & Bloom</div>
+    <nav class="links">
+      <a href="#shop">Shop</a>
+      <a href="#origins">Origins</a>
+      <a href="#guide">Brew Guide</a>
+      <a href="#news">About</a>
+    </nav>
+    <div class="nav-right">
+      <button class="cart-btn" id="cartToggle" aria-label="Open cart">
+        Cart <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div>
+    <div class="eyebrow">Small batch · roasted weekly</div>
+    <h1>Coffee brewed<br>for the <em>patient.</em></h1>
+    <p class="lede">Single-origin lots roasted in five-kilo batches, paired with the gear to pull out what the farmer actually grew. No blends pretending to be something else.</p>
+    <div class="hero-ctas">
+      <a href="#shop" class="btn btn-primary">Shop the roast →</a>
+      <a href="#guide" class="btn btn-outline">Read the brew guide</a>
+    </div>
+  </div>
+  <div class="dial-hero">
+    <svg viewBox="0 0 260 260">
+      <circle class="dial-ring" cx="130" cy="130" r="120"></circle>
+      <circle class="dial-fill" cx="130" cy="130" r="120" transform="rotate(-90 130 130)"></circle>
+      <text x="130" y="122" text-anchor="middle" class="dial-center" font-size="42" fill="var(--text-dark)">4</text>
+      <text x="130" y="150" text-anchor="middle" class="mono" font-size="12" fill="#6b5a49">ROASTS THIS WEEK</text>
+    </svg>
+    <div class="dial-caption">Light → Espresso, dialed daily</div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-track" id="stripTrack"></div>
+</div>
+
+<section class="shop" id="shop">
+  <div class="shop-head">
+    <h2>The current lineup</h2>
+    <div class="filters" id="filters">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="coffee">Coffee</button>
+      <button data-filter="gear">Brew Gear</button>
+    </div>
+  </div>
+  <div class="grid" id="productGrid"></div>
+</section>
+
+<section class="guide" id="guide">
+  <div class="guide-inner">
+    <div>
+      <div class="eyebrow" style="color:var(--gold)">A pour-over, timed</div>
+      <h2>The four-minute V60</h2>
+      <p>Every bag ships with a brew card, but here's the version we actually use in the shop each morning.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="time">0:00</span>
+        <div><h4>Bloom</h4><p>Pour 60g water over 20g grounds. Let it swell and breathe.</p></div>
+      </div>
+      <div class="step">
+        <span class="time">0:45</span>
+        <div><h4>First pour</h4><p>Add water in slow circles up to 200g total, center to edge.</p></div>
+      </div>
+      <div class="step">
+        <span class="time">1:45</span>
+        <div><h4>Second pour</h4><p>Top up to 320g, keeping the bed level and undisturbed.</p></div>
+      </div>
+      <div class="step">
+        <span class="time">3:30</span>
+        <div><h4>Drawdown</h4><p>Water should clear the bed by around four minutes. Adjust grind next time if not.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="news" id="news">
+  <h2>Notes from the roastery</h2>
+  <p>One email a week: new arrivals, cupping notes, and the odd rant about grind size. No spam, just coffee.</p>
+  <form class="news-form" onsubmit="return handleNewsletter(event)">
+    <input type="email" placeholder="you@example.com" required aria-label="Email address">
+    <button class="btn btn-primary" type="submit">Subscribe</button>
+  </form>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-col">
+      <h5>Shop</h5>
+      <a href="#shop">Coffee</a>
+      <a href="#shop">Brew Gear</a>
+      <a href="#shop">Gift Sets</a>
+    </div>
+    <div class="foot-col">
+      <h5>Learn</h5>
+      <a href="#guide">Brew Guide</a>
+      <a href="#origins">Origins Map</a>
+      <a href="#news">Cupping Notes</a>
+    </div>
+    <div class="foot-col">
+      <h5>Shop info</h5>
+      <a href="#">Shipping</a>
+      <a href="#">Wholesale</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Kettle & Bloom Roasting Co.</span>
+    <span>Roasted in small batches, every Tuesday & Friday.</span>
+  </div>
+</footer>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your cart</h3>
+    <button class="close-btn" id="closeDrawer" aria-label="Close cart">×</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-foot" id="drawerFoot"></div>
+</aside>
+
+<script>
+/* ---------- Product data ---------- */
+const PRODUCTS = [
+  {id:'p1', type:'coffee', name:'Yirgacheffe Sun-Dried', origin:'Ethiopia · Gedeo Zone', notes:'jasmine, peach, bergamot', roast:1, price:19, icon:'bean'},
+  {id:'p2', type:'coffee', name:'Huila Reserve', origin:'Colombia · Huila', notes:'caramel, red apple, walnut', roast:2, price:18, icon:'bean'},
+  {id:'p3', type:'coffee', name:'Sumatra Mandheling', origin:'Indonesia · North Sumatra', notes:'cedar, dark chocolate, clove', roast:3, price:17, icon:'bean'},
+  {id:'p4', type:'coffee', name:'Espresso Blend No.4', origin:'Brazil & Guatemala blend', notes:'molasses, fig, toasted almond', roast:4, price:20, icon:'bean'},
+  {id:'p5', type:'gear', name:'Chemex Six-Cup', origin:'Borosilicate glass carafe', notes:'pairs with our light roasts', roast:0, price:48, icon:'carafe'},
+  {id:'p6', type:'gear', name:'Hario V60 Dripper', origin:'Ceramic, size 02', notes:'the shop\\'s daily driver', roast:0, price:22, icon:'dripper'},
+  {id:'p7', type:'gear', name:'Gooseneck Kettle', origin:'Matte steel, 1L', notes:'precision pour, thermometer lid', roast:0, price:54, icon:'kettle'},
+  {id:'p8', type:'gear', name:'Comandante Grinder', origin:'Hand grinder, hardened steel burr', notes:'even grind, any roast level', roast:0, price:265, icon:'grinder'},
+];
+const ROAST_LABEL = {1:'Light',2:'Medium',3:'Dark',4:'Espresso'};
+
+const ICONS = {
+  bean: `<svg viewBox="0 0 64 64" fill="none"><path d="M44 8C30 6 14 16 12 32c-2 16 10 26 22 24 12-2 20-14 20-26C54 18 50 10 44 8Z" stroke="#241A13" stroke-width="2.5"/><path d="M20 46C28 34 30 22 26 10" stroke="#241A13" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  carafe: `<svg viewBox="0 0 64 64" fill="none"><path d="M22 8h20l4 10-10 30a4 4 0 0 1-4 3h-0a4 4 0 0 1-4-3L18 18Z" stroke="#241A13" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 8h20" stroke="#241A13" stroke-width="2.5"/><path d="M24 24h16" stroke="#241A13" stroke-width="2"/></svg>`,
+  dripper: `<svg viewBox="0 0 64 64" fill="none"><path d="M14 18h36l-14 28a4 4 0 0 1-8 0Z" stroke="#241A13" stroke-width="2.5" stroke-linejoin="round"/><circle cx="32" cy="52" r="4" stroke="#241A13" stroke-width="2.5"/></svg>`,
+  kettle: `<svg viewBox="0 0 64 64" fill="none"><path d="M14 30h30a6 6 0 0 1 6 6v4a10 10 0 0 1-10 10H24A10 10 0 0 1 14 40Z" stroke="#241A13" stroke-width="2.5"/><path d="M14 30l-6-4M46 24c4-2 8 0 8 4" stroke="#241A13" stroke-width="2.5" stroke-linecap="round"/><path d="M28 30V16a4 4 0 0 1 4-4h2" stroke="#241A13" stroke-width="2.5" stroke-linecap="round"/></svg>`,
+  grinder: `<svg viewBox="0 0 64 64" fill="none"><rect x="18" y="12" width="28" height="16" rx="3" stroke="#241A13" stroke-width="2.5"/><path d="M24 28v8a8 8 0 0 0 16 0v-8" stroke="#241A13" stroke-width="2.5"/><rect x="26" y="44" width="12" height="10" rx="2" stroke="#241A13" stroke-width="2.5"/></svg>`,
+};
+
+function roastDialSVG(level, size=30){
+  if(!level) return `<svg viewBox="0 0 30 30" width="${size}" height="${size}"><circle cx="15" cy="15" r="12" fill="none" stroke="#D8CBAE" stroke-width="4"/></svg>`;
+  const pct = level/4;
+  const circ = 2*Math.PI*12;
+  const offset = circ*(1-pct);
+  return `<svg viewBox="0 0 30 30" width="${size}" height="${size}">
+    <circle cx="15" cy="15" r="12" fill="none" stroke="#E4D9C3" stroke-width="4"/>
+    <circle cx="15" cy="15" r="12" fill="none" stroke="#2F6E62" stroke-width="4" stroke-linecap="round"
+      stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 15 15)"/>
+  </svg>`;
+}
+
+/* ---------- Cart state (in-memory only) ---------- */
+let cart = {}; // id -> qty
+let currentFilter = 'all';
+let checkedOut = false;
+
+const grid = document.getElementById('productGrid');
+const cartCountEl = document.getElementById('cartCount');
+const drawer = document.getElementById('drawer');
+const overlay = document.getElementById('overlay');
+const drawerItems = document.getElementById('drawerItems');
+const drawerFoot = document.getElementById('drawerFoot');
+
+function renderProducts(){
+  const items = PRODUCTS.filter(p => currentFilter==='all' || p.type===currentFilter);
+  grid.innerHTML = items.map(p => `
+    <div class="card">
+      <div class="card-art">
+        <span class="tag-stamp">${p.type==='coffee' ? ROAST_LABEL[p.roast] : 'Gear'}</span>
+        ${ICONS[p.icon]}
+      </div>
+      <div class="card-body">
+        <div class="card-top">
+          <h3>${p.name}</h3>
+        </div>
+        <div class="origin">${p.origin}</div>
+        <div class="notes">${p.notes}</div>
+        ${p.type==='coffee' ? `<div class="roast-mini">${roastDialSVG(p.roast)}<span class="rl">${ROAST_LABEL[p.roast]} roast</span></div>` : ''}
+        <div class="card-foot">
+          <span class="price">$${p.price}</span>
+          <button class="add-btn" data-id="${p.id}">Add to cart</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      addToCart(btn.dataset.id);
+      btn.textContent = 'Added ✓';
+      btn.classList.add('added');
+      setTimeout(()=>{ btn.textContent='Add to cart'; btn.classList.remove('added'); }, 1100);
+    });
+  });
+}
+
+function addToCart(id){
+  cart[id] = (cart[id] || 0) + 1;
+  checkedOut = false;
+  updateCartUI();
+}
+function changeQty(id, delta){
+  if(!cart[id]) return;
+  cart[id] += delta;
+  if(cart[id] <= 0) delete cart[id];
+  updateCartUI();
+}
+function removeItem(id){
+  delete cart[id];
+  updateCartUI();
+}
+
+function updateCartUI(){
+  const totalCount = Object.values(cart).reduce((a,b)=>a+b,0);
+  cartCountEl.textContent = totalCount;
+
+  const entries = Object.entries(cart);
+  if(checkedOut){
+    drawerFoot.innerHTML = '';
+    drawerItems.innerHTML = `
+      <div class="confirm">
+        <div class="mark">✓</div>
+        <h4>Order placed</h4>
+        <p>This is a demo storefront, so nothing was actually charged — but your beans would be roasting by Friday.</p>
+      </div>`;
+    return;
+  }
+
+  if(entries.length === 0){
+    drawerItems.innerHTML = `<div class="empty-cart">Your cart is empty.<br>Go find something worth waiting four minutes for.</div>`;
+    drawerFoot.innerHTML = '';
+    return;
+  }
+
+  drawerItems.innerHTML = entries.map(([id, qty]) => {
+    const p = PRODUCTS.find(x=>x.id===id);
+    return `
+      <div class="cart-item">
+        <div class="ci-art">${ICONS[p.icon]}</div>
+        <div>
+          <div class="ci-name">${p.name}</div>
+          <div class="ci-price">$${p.price} · $${p.price*qty} total</div>
+          <div class="qty">
+            <button data-action="dec" data-id="${id}" aria-label="Decrease quantity">–</button>
+            <span>${qty}</span>
+            <button data-action="inc" data-id="${id}" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <button class="ci-remove" data-action="remove" data-id="${id}">Remove</button>
+      </div>`;
+  }).join('');
+
+  const subtotal = entries.reduce((sum,[id,qty]) => sum + PRODUCTS.find(x=>x.id===id).price*qty, 0);
+  drawerFoot.innerHTML = `
+    <div class="subtotal-row"><span>Subtotal</span><span class="val">$${subtotal}</span></div>
+    <button class="checkout-btn" id="checkoutBtn">Checkout</button>
+  `;
+  document.getElementById('checkoutBtn').addEventListener('click', () => {
+    checkedOut = true;
+    updateCartUI();
+  });
+
+  drawerItems.querySelectorAll('button[data-action]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id;
+      const action = btn.dataset.action;
+      if(action==='inc') changeQty(id, 1);
+      else if(action==='dec') changeQty(id, -1);
+      else if(action==='remove') removeItem(id);
+    });
+  });
+}
+
+/* ---------- Filters ---------- */
+document.getElementById('filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-filter]');
+  if(!btn) return;
+  currentFilter = btn.dataset.filter;
+  document.querySelectorAll('#filters button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts();
+});
+
+/* ---------- Drawer open/close ---------- */
+function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('open'); }
+function closeDrawer(){ drawer.classList.remove('open'); overlay.classList.remove('open'); }
+document.getElementById('cartToggle').addEventListener('click', openDrawer);
+document.getElementById('closeDrawer').addEventListener('click', closeDrawer);
+overlay.addEventListener('click', closeDrawer);
+
+/* ---------- Newsletter (demo only) ---------- */
+function handleNewsletter(e){
+  e.preventDefault();
+  const btn = e.target.querySelector('button');
+  const original = btn.textContent;
+  btn.textContent = 'Subscribed ✓';
+  setTimeout(()=>{ btn.textContent = original; e.target.reset(); }, 1600);
+  return false;
+}
+
+/* ---------- Ticker strip ---------- */
+const stripContent = ['Free shipping over $40','New arrival: Yirgacheffe Sun-Dried','Roasted every Tue & Fri','Subscriptions ship first'];
+document.getElementById('stripTrack').innerHTML = Array(2).fill(stripContent.map(s=>`<span>${s}</span>`).join('<span>·</span>')).join('<span>·</span>');
+
+/* ---------- Init ---------- */
+renderProducts();
+updateCartUI();
+</script>
+</body>
+</html>
